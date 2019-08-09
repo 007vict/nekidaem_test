@@ -13,8 +13,8 @@ class Blog(models.Model):
         return self.title
 
 class Subscriber(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author',)
     subscriber = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriber')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author',)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

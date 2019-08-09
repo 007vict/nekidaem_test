@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div id="content">
         <h1>Post '{{ posts.title }}':</h1>
         <p>{{ posts.body }}</p>
-    <p>Author <strong>{{ posts.author }}</strong> created: {{ posts.created }}</p>
+    <p>Author <strong><a href="{% url 'blog:user' posts.author.pk %}">
+        {{ posts.author }}</a></strong> created: {{ posts.created }}</p>
+    </div>
+
+    {% if posts.author.username not in request.user.username %}
+    <div id="follow">
+    <a href="#" class="follow button">
+        {% if request.user not in posts.author.followers.all %}
+            Subscribe
+        {% else %}
+            Unsubscribe
+        {% endif %}
+    </a>
+    </div>
+    {% endif %}
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="content">
+        <h3>User:</h3>
+        <p>{{ author.username }}</p>
+    </div>
+    {% with total_followers=author.followers.count %}
+    <span class="count">
+    <span class="total">{{ total_followers }}</span>
+        follower{{ total_followers|pluralize }}
+    </span><br>
+    {% if author.username not in request.user.username %}
+    <a href="#" class="follow button">
+        {% if request.user not in author.followers.all %}
+            Subscribe
+        {% else %}
+            Unsubscribe
+        {% endif %}
+    </a>
+    {% endif %}
+    {% endwith %}
+{% endblock %}

@@ -2,8 +2,9 @@
 
 <h1>My news:</h1>
 {% block content %}
+    <h3>My news:</h3>
     {% for post in posts %}
-        <h5>Post <a href="{% url 'blog:detail' post.pk post.title %}">{{ post.title }}</a>
-            posted {{ post.author }} at {{ post.created }}...</h5><br>
+        <li>Post <a href="{% url 'blog:detail' post.pk post.title %}">{{ post.title }}</a>
+            posted <a href="{% url 'blog:user' post.author.pk %}">{{ post.author }}</a> at {{ post.created }}...</li><br>
     {% endfor %}
 {% endblock %}
