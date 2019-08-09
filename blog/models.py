@@ -12,3 +12,17 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
+class Subscriber(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author',)
+    subscriber = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriber')
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '{} follow {}'.format(self.subscriber, self.author)
+
+User.add_to_class('following',
+                  models.ManyToManyField(User,
+                                         through=Subscriber,
+                                         related_name='followers',
+                                         symmetrical=False))
+
