@@ -4,7 +4,7 @@
     <div id="content">
         <h1>Post '{{ posts.title }}':</h1>
         <p>{{ posts.body }}</p>
-    <p>Author <strong><a href="{% url 'blog:user' posts.author.pk %}">
+    <p>Author <strong><a href="{% url 'blog:user' posts.author_id posts.author.username %}">
         {{ posts.author }}</a></strong> created: {{ posts.created }}</p>
     </div>
 

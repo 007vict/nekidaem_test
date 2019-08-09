@@ -25,6 +25,7 @@ class MyNews(ListView):
 class UserInfo(DetailView):
     model = User
     template_name = 'blog/post/user_info.html'
+    slug_url_kwarg = 'author'
     pk_url_kwarg = 'pk'
     context_object_name = 'author'
 
