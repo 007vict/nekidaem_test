@@ -15,7 +15,8 @@
             <a href="{% url 'blog:subscribe_to_authors' request.user.pk author.pk %}">
                 Subscribe</a>
         {% else %}
-            <a href="#">Unsubscribe</a>
+            <a href="{% url 'blog:unsubscribe_to_authors' request.user.pk author.pk %}">
+                Unsubscribe</a>
         {% endif %}
     {% endif %}
     {% endwith %}

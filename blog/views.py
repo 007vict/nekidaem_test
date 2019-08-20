@@ -19,10 +19,9 @@ class BlogDetailView(DetailView):
 class MyNews(ListView):
     template_name = 'blog/post/mynews.html'
     context_object_name = 'posts'
-    ordering = ['-created']
 
     def get_queryset(self):
-        return Blog.objects.exclude(author=self.request.user)
+        return Blog.objects.exclude(author=self.request.user).order_by('-created')
 
 class UserInfo(DetailView):
     model = User
@@ -42,11 +41,13 @@ class AddSubscriber(View):
         subscriber = Subscriber.objects.get(subscriber_id=user_pk)
         author = Subscriber.objects.get(author_id=author_pk)
         return render(request, 'blog/post/subscriber_to.html', {'subscriber': subscriber, 'author': author})
-# def AddSubscriber(request, id, author_id):
-#     Subscriber.objects.get_or_create(subscriber_id=id, author_id=author_id)
-#     subscriber = Subscriber.objects.get(subscriber_id=id)
-#     author = Subscriber.objects.get(author_id=author_id)
-#     return render(request, 'blog/post/subscriber_to.html', {'subscriber': subscriber, 'author': author})
+
+class DeleteSubscriber(View):
+    def get(self, request, user_pk, author_pk):
+        subscriber = Subscriber.objects.get(subscriber_id=user_pk)
+        author = Subscriber.objects.get(author_id=author_pk)
+        Subscriber.objects.filter(subscriber_id=user_pk, author_id=author_pk).delete()
+        return render(request, 'blog/post/subscriber_del.html', {'subscriber': subscriber, 'author': author})
 
 
 
