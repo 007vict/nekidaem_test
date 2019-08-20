@@ -9,6 +9,7 @@ class Blog(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
 
+
     def __str__(self):
         return self.title
 
@@ -18,7 +19,7 @@ class Subscriber(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '{} follow {}'.format(self.subscriber, self.author)
+        return '{}'.format(self.subscriber)
 
 User.add_to_class('following',
                   models.ManyToManyField(User,

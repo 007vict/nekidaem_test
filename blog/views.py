@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
-from django.views.generic import View, ListView, DetailView, TemplateView
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.views.generic import View, ListView, DetailView, TemplateView, CreateView
 
 from .models import Blog, Subscriber
 
@@ -29,11 +31,32 @@ class UserInfo(DetailView):
     pk_url_kwarg = 'pk'
     context_object_name = 'author'
 
-
-class MuSubscriber(ListView):
+class MySubscriber(ListView):
     model = Subscriber
     context_object_name = 'author'
     template_name = 'blog/post/mysubcribers.html'
+
+class AddSubscriber(View):
+    def get(self, request, user_pk, author_pk):
+        Subscriber.objects.get_or_create(subscriber_id=user_pk, author_id=author_pk)
+        subscriber = Subscriber.objects.get(subscriber_id=user_pk)
+        author = Subscriber.objects.get(author_id=author_pk)
+        return render(request, 'blog/post/subscriber_to.html', {'subscriber': subscriber, 'author': author})
+# def AddSubscriber(request, id, author_id):
+#     Subscriber.objects.get_or_create(subscriber_id=id, author_id=author_id)
+#     subscriber = Subscriber.objects.get(subscriber_id=id)
+#     author = Subscriber.objects.get(author_id=author_id)
+#     return render(request, 'blog/post/subscriber_to.html', {'subscriber': subscriber, 'author': author})
+
+
+
+
+
+
+
+
+
+
 
 
 

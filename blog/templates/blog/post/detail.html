@@ -10,7 +10,7 @@
 
     {% if posts.author.username not in request.user.username %}
     <div id="follow">
-    <a href="#" class="follow button">
+    <a href="{% url 'blog:subscribe_to_authors' request.user.pk posts.author.pk %}">
         {% if request.user not in posts.author.followers.all %}
             Subscribe
         {% else %}
