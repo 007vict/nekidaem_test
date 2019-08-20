@@ -11,13 +11,12 @@
         follower{{ total_followers|pluralize }}
     </span><br>
     {% if author.username not in request.user.username %}
-    <a href="{% url 'blog:subscribe_to_authors' request.user.pk author.author.pk %}">
         {% if request.user not in author.followers.all %}
-            Subscribe
+            <a href="{% url 'blog:subscribe_to_authors' request.user.pk author.pk %}">
+                Subscribe</a>
         {% else %}
-            Unsubscribe
+            <a href="#">Unsubscribe</a>
         {% endif %}
-    </a>
     {% endif %}
     {% endwith %}
 {% endblock %}
