@@ -2,7 +2,7 @@
 
 {% block content %}
     <div id="content">
-        <h3>User:</h3>
+        <h3>Info of user:</h3>
         <p>{{ author.username }}</p>
     </div>
     {% with total_followers=author.followers.count %}

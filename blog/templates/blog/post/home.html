@@ -5,8 +5,9 @@
     <h1>New posts:</h1>
 
         {% for post in posts %}
-             post <a href="{% url 'blog:detail' post.pk post.title %}">{{ post.title }}</a>
-            created <a href="{% url 'blog:user' post.author_id post.author %}" >{{ post.author }}</a><br>
+             Post <a href="{% url 'blog:detail' post.pk post.title %}">{{ post.title }}</a>
+            created <a href="{% url 'blog:user' post.author_id post.author %}" >{{ post.author }}</a>
+            at {{ post.created }}.<br>
         {% endfor %}
 
 {% endblock %}

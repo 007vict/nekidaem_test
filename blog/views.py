@@ -1,27 +1,36 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View, ListView, DetailView, TemplateView, CreateView
 
 from .models import Blog, Subscriber
+from .forms import *
 
 class BlogHomeView(ListView):
     model = Blog
     context_object_name = 'posts'
     template_name = 'blog/post/home.html'
 
-class BlogDetailView(DetailView):
-    model = Blog
-    context_object_name = 'posts'
-    template_name = 'blog/post/detail.html'
+class BlogDetailView(View):
+    def get(self, request, pk, title):
+        posts = Blog.objects.get(pk=pk, title=title)
+        print(type(posts.read))
+        if len(posts.read) == 0:
+                posts.read = []
+                posts.read.append(request.user.username)
+                posts.save()
+        if request.user.username not in posts.read:
+            posts.read.append(request.user.username)
+            posts.save()
+        return render(request, 'blog/post/detail.html', {'posts': posts})
 
 
-class MyNews(ListView):
-    template_name = 'blog/post/mynews.html'
-    context_object_name = 'posts'
+class MyNews(View):
+    def get(self, request):
+        posts = Blog.objects.exclude(author=request.user).\
+            order_by('-created')
+        form = ReadNews()
+        return render(request, 'blog/post/mynews.html', {'posts': posts, 'form': form})
 
-    def get_queryset(self):
-        return Blog.objects.exclude(author=self.request.user).order_by('-created')
 
 class UserInfo(DetailView):
     model = User

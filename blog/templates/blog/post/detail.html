@@ -8,15 +8,14 @@
         {{ posts.author }}</a></strong> created: {{ posts.created }}</p>
     </div>
 
+
     {% if posts.author.username not in request.user.username %}
     <div id="follow">
-    <a href="{% url 'blog:subscribe_to_authors' request.user.pk posts.author.pk %}">
         {% if request.user not in posts.author.followers.all %}
-            Subscribe
+            <a href="{% url 'blog:subscribe_to_authors' request.user.pk posts.author.pk %}">Subscribe</a>
         {% else %}
-            Unsubscribe
+            <a href="{% url 'blog:unsubscribe_to_authors' request.user.pk posts.author.pk %}">Unsubscribe</a>
         {% endif %}
-    </a>
     </div>
     {% endif %}
 {% endblock %}

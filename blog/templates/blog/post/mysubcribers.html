@@ -3,6 +3,6 @@
 {% block content %}
     <h3>Subscribers of author <a href="{% url 'blog:user' request.user.pk request.user.username %}">{{ request.user.username }}</a>:</h3>
     {% for subscriber in request.user.following.all %}
-        <p align='left'>{{ subscriber }}</p>
+        <a href="{% url 'blog:user'  subscriber.pk subscriber.username%}"><p align='left'>{{ subscriber }}</p></a>
     {% endfor %}
 {% endblock %}
