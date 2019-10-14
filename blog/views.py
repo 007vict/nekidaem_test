@@ -29,7 +29,7 @@ class BlogDetailView(View):
 class MyNews(View):
 
     def get(self, request):
-        posts = Blog.objects.exclude(author=request.user) \
+        posts = Blog.objects.filter(author__author__subscriber=request.user)\
             .exclude(reader_news=True) \
             .order_by('-created')
 
@@ -48,7 +48,7 @@ class MyNews(View):
 
 
     def post(self, request):
-        posts = Blog.objects.exclude(author=request.user) \
+        posts = Blog.objects.filter(author__author__subscriber=request.user) \
             .exclude(reader_news=True) \
             .order_by('-created')
 
