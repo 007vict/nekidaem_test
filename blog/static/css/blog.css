@@ -1,0 +1,11 @@
+#content{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+#leftt{
+    float: left;
+}
+#rightt{
+    float: right;
+}

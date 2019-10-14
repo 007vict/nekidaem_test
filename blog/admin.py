@@ -3,7 +3,7 @@ from .models import Blog, Subscriber
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'body', 'created', 'read')
+    list_display = ('title', 'author', 'body', 'created', 'read', 'reader_news')
 
 
 @admin.register(Subscriber)

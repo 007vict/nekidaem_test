@@ -1,9 +1,14 @@
-from django import forms
+from django.forms.models import modelformset_factory
 
 from blog.models import Blog
 
-class ReadNews(forms.ModelForm):
-    reader_news = forms.BooleanField(label='Read this news?')
-    class Meta:
-        model = Blog
-        fields = ('reader_news',)
+ReadNewsFormSet = modelformset_factory(Blog, fields=('reader_news',), extra=0)
+
+
+
+
+
+
+
+
+

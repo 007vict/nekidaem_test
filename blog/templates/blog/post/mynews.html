@@ -3,10 +3,28 @@
 <h1>My news:</h1>
 {% block content %}
     <h3>My news:</h3>
-    {% for post in posts %}
-            <li>Post <a href="{% url 'blog:detail' post.pk post.title %}">{{ post.title }}</a>
+    <table>
+        <tbody>
+        <td>
+            {% for post in posts %}
+                Post <a href="{% url 'blog:detail' post.pk post.title %}">{{ post.title }}</a>
                 posted <a href="{% url 'blog:user' post.author.pk post.author %}">{{ post.author }}</a>
-                at {{ post.created }}...{{ form.as_p }}
-            </li><br>
-    {% endfor %}
+                at {{ post.created }}...
+                <br>
+            {% endfor %}
+        </td>
+
+        <form action="" method="post">
+            <td>
+                {% csrf_token %}
+                {{ forms.management_form }}
+                {% for form in forms %}
+                    {{ form.id }}
+                    {{ form.reader_news }}<br>
+                {% endfor %}
+            </td>
+            <td><input type="submit" name="reader_news" value="Mark read"></td>
+        </form>
+        </tbody>
+    </table>
 {% endblock %}

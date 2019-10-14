@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from django.views.generic import View, ListView, DetailView, TemplateView, CreateView
+from django.views.generic import View, ListView, DetailView
 
 from .models import Blog, Subscriber
 from .forms import *
@@ -25,12 +25,29 @@ class BlogDetailView(View):
 
 
 class MyNews(View):
-    def get(self, request):
-        posts = Blog.objects.exclude(author=request.user).\
-            order_by('-created')
-        form = ReadNews()
-        return render(request, 'blog/post/mynews.html', {'posts': posts, 'form': form})
 
+    def get(self, request):
+        posts = Blog.objects.exclude(author=request.user)\
+            .order_by('-created')
+
+        formset = ReadNewsFormSet(queryset=posts)
+        forms = formset
+        return render(request, 'blog/post/mynews.html', {'posts': posts,
+                                                         'forms': forms,
+                                                         })
+
+    def post(self, request):
+        posts = Blog.objects.exclude(author=request.user)\
+            .order_by('-created')
+
+        if request.method == 'POST':
+            formset = ReadNewsFormSet(request.POST, queryset=posts)
+            if formset.is_valid():
+                formset.save()
+                forms = formset
+                return render(request, 'blog/post/mynews.html', {'posts': posts,
+                                                                 'forms': forms,
+                                                                 })
 
 class UserInfo(DetailView):
     model = User
