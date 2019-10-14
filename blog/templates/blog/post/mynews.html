@@ -23,7 +23,9 @@
                     {{ form.reader_news }}<br>
                 {% endfor %}
             </td>
-            <td><input type="submit" name="reader_news" value="Mark read"></td>
+        {% if form_count %}
+            <p><input type="submit" name="reader_news" value="Mark read"></p>
+        {% endif %}
         </form>
         </tbody>
     </table>
