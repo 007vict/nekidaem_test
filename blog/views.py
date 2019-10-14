@@ -1,16 +1,15 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, reverse, redirect
-from django.views.generic import View, ListView, DetailView
+from django.views.generic import View, ListView, DetailView, CreateView
 
 from .models import Blog, Subscriber
 from .forms import *
 
 
 class BlogHomeView(ListView):
-    model = Blog
+    queryset = Blog.objects.all().order_by('-created')
     context_object_name = 'posts'
     template_name = 'blog/post/home.html'
-
 
 
 class BlogDetailView(View):
@@ -27,12 +26,10 @@ class BlogDetailView(View):
 
 
 class MyNews(View):
-
     def get(self, request):
-        posts = Blog.objects.filter(author__author__subscriber=request.user)\
+        posts = Blog.objects.filter(author__author__subscriber=request.user) \
             .exclude(reader_news=True) \
             .order_by('-created')
-
         formset = ReadNewsFormSet(queryset=posts)
         forms = formset
         form_count = len(forms)
@@ -41,18 +38,15 @@ class MyNews(View):
                                                          'form_count': form_count
                                                          })
 
-
     def post(self, request):
         posts = Blog.objects.filter(author__author__subscriber=request.user) \
             .exclude(reader_news=True) \
             .order_by('-created')
-
         if request.method == 'POST':
             formset = ReadNewsFormSet(request.POST, queryset=posts)
             if formset.is_valid():
                 formset.save()
                 return redirect('blog:my_news')
-
 
 
 class UserInfo(DetailView):
@@ -83,3 +77,16 @@ class DeleteSubscriber(View):
         author = Subscriber.objects.get(author_id=author_pk)
         Subscriber.objects.filter(subscriber_id=user_pk, author_id=author_pk).delete()
         return render(request, 'blog/post/subscriber_del.html', {'subscriber': subscriber, 'author': author})
+
+
+class AddPost(CreateView):
+    form_class = AddPostForm
+    template_name = 'blog/post/new_post.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.author = self.request.user
+        instance.save()
+        # print(self.get_success_url())
+        return redirect('/')
