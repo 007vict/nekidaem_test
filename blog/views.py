@@ -12,10 +12,10 @@ class BlogHomeView(ListView):
     template_name = 'blog/post/home.html'
 
 
+
 class BlogDetailView(View):
-    def get(self, request, pk, title):
-        posts = Blog.objects.get(pk=pk, title=title)
-        print(type(posts.read))
+    def get(self, request, pk):
+        posts = Blog.objects.get(pk=pk)
         if len(posts.read) == 0:
             posts.read = []
             posts.read.append(request.user.username)
@@ -35,16 +35,11 @@ class MyNews(View):
 
         formset = ReadNewsFormSet(queryset=posts)
         forms = formset
-        if len(forms) > 0:
-            form_count = len(forms)
-            return render(request, 'blog/post/mynews.html', {'posts': posts,
-                                                             'forms': forms,
-                                                             'form_count': form_count
-                                                             })
-        else:
-            return render(request, 'blog/post/mynews.html', {'posts': posts,
-                                                             'forms': forms,
-                                                             })
+        form_count = len(forms)
+        return render(request, 'blog/post/mynews.html', {'posts': posts,
+                                                         'forms': forms,
+                                                         'form_count': form_count
+                                                         })
 
 
     def post(self, request):

@@ -7,7 +7,7 @@
         <tbody>
         <td>
             {% for post in posts %}
-                Post <a href="{% url 'blog:detail' post.pk post.title %}">{{ post.title }}</a>
+                Post <a href="{% url 'blog:detail' post.pk %}">{{ post.title }}</a>
                 posted <a href="{% url 'blog:user' post.author.pk post.author %}">{{ post.author }}</a>
                 at {{ post.created }}...
                 <br>
