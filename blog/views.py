@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.shortcuts import render, reverse, redirect
 from django.views.generic import View, ListView, DetailView, CreateView
 
@@ -78,7 +79,7 @@ class MySubscriber(ListView):
 
 class AddSubscriber(View):
     def get(self, request, user_pk, author_pk):
-        p = Subscriber.objects.get_or_create(subscriber_id=user_pk, author_id=author_pk)
+        Subscriber.objects.get_or_create(subscriber_id=user_pk, author_id=author_pk)
         subscriber = Subscriber.objects.get(subscriber_id=user_pk, author_id=author_pk).subscriber
         author = Subscriber.objects.get(author_id=author_pk, subscriber_id=user_pk).author
         return render(request, 'blog/post/subscriber_to.html', {'subscriber': subscriber, 'author': author})
@@ -103,6 +104,9 @@ class AddPost(CreateView):
         instance.save()
         post_create.delay(instance.id)
         return redirect('/')
+
+
+
 
 
 
