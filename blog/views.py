@@ -16,20 +16,21 @@ class BlogHomeView(ListView):
 class BlogDetailView(View):
     def get(self, request, pk):
         posts = Blog.objects.get(pk=pk)
-        if len(posts.read) == 0:
-            posts.read = []
-            posts.read.append(request.user.username)
-            posts.save()
-        if request.user.username not in posts.read:
-            posts.read.append(request.user.username)
-            posts.save()
+        """Automatic request.user mark read post  """
+        # if len(posts.read) == 0:
+        #     posts.read = []
+        #     posts.read.append(request.user.username)
+        #     posts.save()
+        # if request.user.username not in posts.read:
+        #     posts.read.append(request.user.username)
+        #     posts.save()
         return render(request, 'blog/post/detail.html', {'posts': posts})
 
 
 class MyNews(View):
     def get(self, request):
         posts = Blog.objects.filter(author__author__subscriber=request.user) \
-            .exclude(reader_news=True) \
+            .exclude(read__contains=request.user.username) \
             .order_by('-created')
         formset = ReadNewsFormSet(queryset=posts)
         forms = formset
@@ -41,12 +42,23 @@ class MyNews(View):
 
     def post(self, request):
         posts = Blog.objects.filter(author__author__subscriber=request.user) \
-            .exclude(reader_news=True) \
+            .exclude(read__contains=request.user.username) \
             .order_by('-created')
         if request.method == 'POST':
             formset = ReadNewsFormSet(request.POST, queryset=posts)
             if formset.is_valid():
                 formset.save()
+                for post in posts:
+                    if post.reader_news == True:
+                        if not post.read:
+                            post.read = []
+                            post.read.append(request.user.username)
+                            post.reader_news = False
+                            post.save()
+                        else:
+                            post.read.append(request.user.username)
+                            post.reader_news = False
+                            post.save()
                 return redirect('blog:my_news')
 
 
