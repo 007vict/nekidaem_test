@@ -7,7 +7,7 @@ ReadNewsFormSet = modelformset_factory(Blog, fields=('reader_news',), extra=0)
 class AddPostForm(ModelForm):
     class Meta:
         model = Blog
-        fields = ('title', 'body',)
+        fields = ('title', 'body')
 
 
 

@@ -18,8 +18,7 @@ class Blog(models.Model):
         return self.title
 
     # def get_absolute_url(self):
-    #     return reverse('blog:detail', args=[self.pk,
-    #                                         self.title])
+    #     return reverse('blog:detail', args=[self.pk])
 
 
 class Subscriber(models.Model):
@@ -35,6 +34,7 @@ User.add_to_class('following',
                                          through=Subscriber,
                                          related_name='followers',
                                          symmetrical=False))
+
 
 
 

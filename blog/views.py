@@ -4,6 +4,7 @@ from django.views.generic import View, ListView, DetailView, CreateView
 
 from .models import Blog, Subscriber
 from .forms import *
+from .tasks import post_create
 
 
 class BlogHomeView(ListView):
@@ -65,16 +66,16 @@ class MySubscriber(ListView):
 
 class AddSubscriber(View):
     def get(self, request, user_pk, author_pk):
-        Subscriber.objects.get_or_create(subscriber_id=user_pk, author_id=author_pk)
-        subscriber = Subscriber.objects.get(subscriber_id=user_pk)
-        author = Subscriber.objects.get(author_id=author_pk)
+        p = Subscriber.objects.get_or_create(subscriber_id=user_pk, author_id=author_pk)
+        subscriber = Subscriber.objects.get(subscriber_id=user_pk, author_id=author_pk).subscriber
+        author = Subscriber.objects.get(author_id=author_pk, subscriber_id=user_pk).author
         return render(request, 'blog/post/subscriber_to.html', {'subscriber': subscriber, 'author': author})
 
 
 class DeleteSubscriber(View):
     def get(self, request, user_pk, author_pk):
-        subscriber = Subscriber.objects.get(subscriber_id=user_pk)
-        author = Subscriber.objects.get(author_id=author_pk)
+        subscriber = Subscriber.objects.get(subscriber_id=user_pk, author_id=author_pk).subscriber
+        author = Subscriber.objects.get(author_id=author_pk, subscriber_id=user_pk).author
         Subscriber.objects.filter(subscriber_id=user_pk, author_id=author_pk).delete()
         return render(request, 'blog/post/subscriber_del.html', {'subscriber': subscriber, 'author': author})
 
@@ -88,5 +89,10 @@ class AddPost(CreateView):
         instance = form.save(commit=False)
         instance.author = self.request.user
         instance.save()
-        # print(self.get_success_url())
+        post_create.delay(instance.id)
         return redirect('/')
+
+
+
+
+
