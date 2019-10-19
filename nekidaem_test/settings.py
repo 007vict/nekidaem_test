@@ -127,8 +127,8 @@ STATIC_URL = '/static/'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_HOST_USER = 'super_vg@bk.ru'
-EMAIL_HOST_PASSWORD = '1888Vict'
+EMAIL_HOST_USER = 'your_mail'
+EMAIL_HOST_PASSWORD = 'your_password'
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 SERVER_EMAIL = EMAIL_HOST_USER
