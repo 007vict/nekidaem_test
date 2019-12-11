@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render, redirect
 from django.views.generic import View, ListView, DetailView, CreateView
 
 from .models import Blog, Subscriber
@@ -96,14 +95,14 @@ class DeleteSubscriber(View):
 class AddPost(CreateView):
     form_class = AddPostForm
     template_name = 'blog/post/new_post.html'
-    success_url = '/'
+    success_url = 'blog:home'
 
     def form_valid(self, form):
         instance = form.save(commit=False)
         instance.author = self.request.user
         instance.save()
         post_create.delay(instance.id)
-        return redirect('/')
+        return redirect('blog:home')
 
 
 

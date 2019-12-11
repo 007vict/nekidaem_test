@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'f8*8b%6-!ip2)@cqj#@7a9jv^j@h%6=yo39(cwjdoh4e-sb&gq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'celery',
 ]
 
 MIDDLEWARE = [
@@ -78,13 +80,24 @@ WSGI_APPLICATION = 'nekidaem_test.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'nekidaem',
-        'USER': 'nekidaem',
-        'PASSWORD': 'nekidaem',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'nekidaem',
+#         'USER': 'nekidaem',
+#         'PASSWORD': 'nekidaem',
+#         'HOST': '127.0.0.1',
+#         'PORT': 5432,
+#     }
+# }
+
 
 
 # Password validation
@@ -133,3 +146,7 @@ EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CELERY_BROKER_URL = 'amqp://rabbitmq'
+
+
