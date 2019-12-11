@@ -2,7 +2,7 @@
 
  The application is the best used with a virtual environment.
 
- Input in your terminal:
+#### Input in your terminal:
 
  ```
   mkdir app_dir
@@ -21,7 +21,7 @@
  6.python manage.py runserver
  7.sign in admin site and create your new post!))
  ```
-#### Setting for send_email to subscribers change in settings.py:
+#### Setting for function the 'send email to subscribers' need to change in settings.py:
  ```
  EMAIL_HOST = 'smtp.your_host'
  EMAIL_HOST_USER = 'your_user'
