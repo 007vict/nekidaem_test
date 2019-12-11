@@ -1,6 +1,6 @@
 # Blog applications
 
-## The application is the best used with a virtual environment.
+ The application is the best used with a virtual environment.
 
  Input in your terminal:
 
@@ -11,7 +11,7 @@
   source venv/bin/activate
  ```
 
-## Setup application Blog:
+#### Setup application Blog:
  ```
  1.git clone https://github.com/007vict/nekidaem_test.git
  2.pip install -r requirements.txt
@@ -21,7 +21,7 @@
  6.python manage.py runserver
  7.sign in admin site and create your new post!))
  ```
-## Setting for send_email to subscribers change in settings.py:
+#### Setting for send_email to subscribers change in settings.py:
  ```
  EMAIL_HOST = 'smtp.your_host'
  EMAIL_HOST_USER = 'your_user'
