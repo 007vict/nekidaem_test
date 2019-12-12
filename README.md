@@ -14,12 +14,12 @@
 #### Setup application Blog:
  ```
  1.git clone https://github.com/007vict/nekidaem_test.git
- 2.pip install -r requirements.txt
- 3.python manage.py makemigrations
- 4.python manage.py migrate
- 5.python manage.py createsuperuser
- 6.python manage.py runserver
- 7.sign in admin site and create your new post!))
+ 2.docker-compose up
+ Input in terminal:
+ 3.docker-compose run web python manage.py makemigrations
+ 4.docker-compose run web python manage.py migrate
+ 5.docker-compose run web python manage.py createsuperuser
+ 6.sign in admin site and create your new post
  ```
 #### Setting for function the 'send email to subscribers' need to change in settings.py:
  ```
@@ -27,7 +27,4 @@
  EMAIL_HOST_USER = 'your_user'
  EMAIL_HOST_PASSWORD = 'your_password'
  EMAIL_PORT = your_host_number_port
- EMAIL_USE_TLS = True
- SERVER_EMAIL = EMAIL_HOST_USER
- DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
  ```

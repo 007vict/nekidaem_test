@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'f8*8b%6-!ip2)@cqj#@7a9jv^j@h%6=yo39(cwjdoh4e-sb&gq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -85,19 +85,6 @@ DATABASES = {
         'PORT': 5432,
     }
 }
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'nekidaem',
-#         'USER': 'nekidaem',
-#         'PASSWORD': 'nekidaem',
-#         'HOST': '127.0.0.1',
-#         'PORT': 5432,
-#     }
-# }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -141,10 +128,10 @@ STATICFILES_DIRS = [
     ]
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_HOST_USER = 'super_vg@bk.ru'
-EMAIL_HOST_PASSWORD = 'ViCt_1888'
-EMAIL_PORT = 2525
+EMAIL_HOST = 'yuor_mail_host'
+EMAIL_HOST_USER = 'your_user_mail'
+EMAIL_HOST_PASSWORD = 'your_password'
+EMAIL_PORT = 2525 #change port for your mail
 EMAIL_USE_TLS = True
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
