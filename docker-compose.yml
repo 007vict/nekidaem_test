@@ -5,11 +5,12 @@ services:
     image: postgres
   web: &web
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn nekidaem_test.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/code
-    ports:
-      - "8000:8000"
+      - ./static:/code/static/
+    expose:
+      - 8000
     depends_on:
       - db
       - rabbitmq
@@ -23,7 +24,17 @@ services:
     depends_on:
       - rabbitmq
       - db
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./static:/code/static/
+    ports:
+      - 1337:80
+    depends_on:
+      - web
 
+volumes:
+    static:
 
 
 
