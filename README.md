@@ -14,7 +14,6 @@
 #### Setup application Blog:
  ```
  1.git clone https://github.com/007vict/nekidaem_test.git
- 2.cd nekidaem_test
  2.pip install -r requirements.txt
  3.docker-compose up --build
  4.docker-compose down -v
