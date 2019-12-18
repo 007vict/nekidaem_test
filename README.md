@@ -20,12 +20,12 @@
  5.docker-compose run --rm web python manage.py makemigrations
  6.docker-compose run --rm web python manage.py migrate
  7.docker-compose run --rm web python manage.py createsuperuser
- 8.sign in admin site and create your new post!
+ 8.sign in 'your_ip:1337/admin' site and create your new post!
  ```
 #### Setting for function the 'send email to subscribers' need to change in settings.py:
  ```
  EMAIL_HOST = 'smtp.your_host'
- EMAIL_HOST_USER = 'your_user'
+ EMAIL_HOST_USER = 'your_email'
  EMAIL_HOST_PASSWORD = 'your_password'
  EMAIL_PORT = your_host_number_port
  ```
