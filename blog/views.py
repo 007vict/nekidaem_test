@@ -79,8 +79,8 @@ class MySubscriber(ListView):
 class AddSubscriber(View):
     def get(self, request, user_pk, author_pk):
         Subscriber.objects.get_or_create(subscriber_id=user_pk, author_id=author_pk)
-        subscriber = Subscriber.objects.get(subscriber_id=user_pk, author_id=author_pk).subscriber
-        author = Subscriber.objects.get(author_id=author_pk, subscriber_id=user_pk).author
+        subscriber = Subscriber.objects.get(subscriber_id=user_pk, author_id=author_pk).subscriber.username
+        author = Subscriber.objects.get(author_id=author_pk, subscriber_id=user_pk).author.username
         return render(request, 'blog/post/subscriber_to.html', {'subscriber': subscriber, 'author': author})
 
 
