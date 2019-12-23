@@ -126,7 +126,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'yuor_mail_host'
+EMAIL_HOST = 'your_mail_host'
 EMAIL_HOST_USER = 'your_user_mail'
 EMAIL_HOST_PASSWORD = 'your_password'
 EMAIL_PORT = 2525 #change port for your mail!!!
