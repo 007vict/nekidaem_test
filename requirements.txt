@@ -30,7 +30,7 @@ pytz==2019.2
 PyYAML==3.13
 rabbitmq==0.2.0
 six==1.12.0
-sqlparse==0.3.0
+sqlparse==0.4.4
 texttable==0.9.1
 tornado==6.3.2
 vine==1.3.0
